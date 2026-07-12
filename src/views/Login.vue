@@ -9,10 +9,6 @@
             <span class="logo-text">个人笔记</span>
           </div>
           <p class="login-desc">登录您的个人知识库</p>
-          <div class="default-hint">
-            <span class="hint-icon">💡</span>
-            <span class="hint-text">默认账户：admin / 123456</span>
-          </div>
         </div>
 
         <el-form ref="formRef" :model="form" :rules="rules" class="login-form">
@@ -97,10 +93,10 @@
           </div>
         </div>
         <div class="info-card">
-          <div class="info-icon">📱</div>
+          <div class="info-icon">📊</div>
           <div class="info-content">
-            <h3>随时随地</h3>
-            <p>多设备同步访问</p>
+            <h3>数据看板</h3>
+            <p>可视化知识统计</p>
           </div>
         </div>
       </div>
@@ -258,27 +254,6 @@ function handleLogin() {
   font-size: 14px;
   color: var(--text-secondary);
   margin: 0;
-}
-
-.default-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 10px 16px;
-  background: rgba(32, 189, 153, 0.08);
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-
-.hint-icon {
-  font-size: 14px;
-}
-
-.hint-text {
-  font-weight: 500;
 }
 
 .login-form {
