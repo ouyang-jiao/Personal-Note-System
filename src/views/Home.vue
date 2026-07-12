@@ -232,9 +232,18 @@ const filterPriority = ref('all')
 const sortBy = ref('updatedAt')
 const currentPage = ref(1)
 const pageSize = ref(10)
+const searchKeyword = ref('')
 
 const filteredNotes = computed(() => {
   let result = [...notes.value]
+  
+  if (searchKeyword.value) {
+    const lowerKeyword = searchKeyword.value.toLowerCase()
+    result = result.filter(n =>
+      n.title.toLowerCase().includes(lowerKeyword) ||
+      n.content.toLowerCase().includes(lowerKeyword)
+    )
+  }
   
   if (filterCategory.value !== '全部') {
     result = result.filter(n => n.category === filterCategory.value)
@@ -283,10 +292,11 @@ function initFilters() {
     filterTag.value = '全部'
   }
   if (route.query.keyword) {
-    const searchResult = noteStore.searchNotes(route.query.keyword)
+    searchKeyword.value = route.query.keyword
     filterCategory.value = '全部'
     filterTag.value = '全部'
-    router.push({ path: '/' })
+  } else {
+    searchKeyword.value = ''
   }
   currentPage.value = 1
 }

@@ -11,15 +11,16 @@
       
       <div class="header-right">
         <div class="search-box">
-          <Search class="search-icon" />
-          <input
-            type="text"
-            v-model="searchKeyword"
-            placeholder="搜索笔记..."
-            class="search-input"
-            @keyup.enter="handleSearch"
-          />
-        </div>
+            <Search class="search-icon" />
+            <input
+              type="text"
+              v-model="searchKeyword"
+              placeholder="搜索笔记..."
+              class="search-input"
+              @input="handleSearch"
+              @keyup.enter="handleSearch"
+            />
+          </div>
         
         <div class="header-actions">
           <button class="theme-toggle" @click="toggleTheme" title="切换主题">
@@ -82,10 +83,11 @@ function toggleTheme() {
 }
 
 function handleSearch() {
-  if (searchKeyword.value.trim()) {
-    router.push({ path: '/', query: { keyword: searchKeyword.value.trim() } })
+  const keyword = searchKeyword.value.trim()
+  if (keyword) {
+    router.push({ path: '/', query: { keyword } })
   } else {
-    router.push({ path: '/' })
+    router.push({ path: '/', query: {} })
   }
 }
 
