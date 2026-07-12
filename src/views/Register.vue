@@ -18,10 +18,10 @@
           </div>
         </div>
         <div class="info-card">
-          <div class="info-icon">📱</div>
+          <div class="info-icon">📊</div>
           <div class="info-content">
-            <h3>随时随地</h3>
-            <p>多设备同步访问</p>
+            <h3>数据看板</h3>
+            <p>可视化知识统计</p>
           </div>
         </div>
       </div>
