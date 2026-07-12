@@ -8,41 +8,43 @@
       </div>
     </div>
     
-    <nav class="sidebar-nav">
-      <el-menu
-        :default-active="activeMenu"
-        mode="vertical"
-        class="sidebar-menu"
-        background-color="transparent"
-        text-color="#748289"
-        active-text-color="#20BD99"
-        router
-      >
-        <el-menu-item 
-          v-for="(item, index) in menuItems" 
-          :key="item.path" 
-          :index="item.path"
-          :style="{ animationDelay: `${index * 0.1}s` }"
-          class="menu-item-animated"
+    <div class="sidebar-scroll">
+      <nav class="sidebar-nav">
+        <el-menu
+          :default-active="activeMenu"
+          mode="vertical"
+          class="sidebar-menu"
+          background-color="transparent"
+          text-color="#748289"
+          active-text-color="#20BD99"
+          router
         >
-          <component :is="item.icon" class="menu-icon" />
-          <span class="menu-text">{{ item.title }}</span>
-        </el-menu-item>
-      </el-menu>
-    </nav>
+          <el-menu-item 
+            v-for="(item, index) in menuItems" 
+            :key="item.path" 
+            :index="item.path"
+            :style="{ animationDelay: `${index * 0.1}s` }"
+            class="menu-item-animated"
+          >
+            <component :is="item.icon" class="menu-icon" />
+            <span class="menu-text">{{ item.title }}</span>
+          </el-menu-item>
+        </el-menu>
+      </nav>
 
-    <div class="sidebar-footer">
-      <div class="category-nav">
-        <div class="nav-title">分类导航</div>
-        <div
-          v-for="cat in categories"
-          :key="cat.id"
-          class="category-item"
-          :class="{ active: activeCategory === cat.name }"
-          @click="handleCategoryClick(cat.name)"
-        >
-          <span class="cat-dot" :style="{ backgroundColor: cat.color }"></span>
-          <span class="cat-name">{{ cat.name }}</span>
+      <div class="sidebar-footer">
+        <div class="category-nav">
+          <div class="nav-title">分类导航</div>
+          <div
+            v-for="cat in categories"
+            :key="cat.id"
+            class="category-item"
+            :class="{ active: activeCategory === cat.name }"
+            @click="handleCategoryClick(cat.name)"
+          >
+            <span class="cat-dot" :style="{ backgroundColor: cat.color }"></span>
+            <span class="cat-name">{{ cat.name }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -112,6 +114,39 @@ function handleCategoryClick(category) {
   z-index: 100;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+}
+
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(32, 189, 153, 0.2);
+  border-radius: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 189, 153, 0.4);
+}
+
+.sidebar.dark .sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(32, 189, 153, 0.3);
+}
+
+.sidebar.dark .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 189, 153, 0.5);
 }
 
 .sidebar::before {
@@ -210,7 +245,6 @@ function handleCategoryClick(category) {
 }
 
 .sidebar-nav {
-  flex: 1;
   padding: 16px 0;
   position: relative;
   z-index: 1;
