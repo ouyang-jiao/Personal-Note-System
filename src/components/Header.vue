@@ -34,6 +34,10 @@
           <router-link to="/settings" class="action-btn">
             <Setting class="action-icon" />
           </router-link>
+          <div class="user-info">
+            <div class="user-name-avatar">{{ displayName.charAt(0).toUpperCase() }}</div>
+            <span class="user-name">{{ displayName }}</span>
+          </div>
           <button class="action-btn logout-btn" @click="handleLogout" title="退出登录">
             <SwitchButton class="action-icon" />
           </button>
@@ -65,6 +69,8 @@ const pageTitle = computed(() => {
 })
 
 const recycleCount = computed(() => noteStore.deletedNotes.length)
+
+const displayName = computed(() => authStore.currentUser?.username || '用户')
 
 function toggleSidebar() {
   sidebarCollapsed.value = !sidebarCollapsed.value
@@ -276,5 +282,50 @@ function handleLogout() {
 
 .el-badge__content {
   background: #F53F3F;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(32, 189, 153, 0.08);
+  transition: all 0.2s ease;
+}
+
+.user-info:hover {
+  background: rgba(32, 189, 153, 0.15);
+}
+
+.header.dark .user-info {
+  background: rgba(32, 189, 153, 0.12);
+}
+
+.header.dark .user-info:hover {
+  background: rgba(32, 189, 153, 0.2);
+}
+
+.user-name-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #20BD99 0%, #1ABC9C 100%);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

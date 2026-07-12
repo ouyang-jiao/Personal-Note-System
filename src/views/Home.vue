@@ -1,5 +1,16 @@
 <template>
   <div class="page-container">
+    <div class="welcome-bar animate-fade-in">
+      <div class="welcome-left">
+        <div class="user-avatar">{{ currentUser.charAt(0).toUpperCase() }}</div>
+        <div class="welcome-text">
+          <div class="welcome-greeting">{{ greeting }}，{{ currentUser }}</div>
+          <div class="welcome-sub">欢迎回到您的个人知识库</div>
+        </div>
+      </div>
+      <div class="welcome-date">{{ todayDate }}</div>
+    </div>
+
     <div class="stats-row">
       <div class="stat-card animate-fade-in" style="animation-delay: 0.1s">
         <div class="stat-icon blue">📚</div>
@@ -185,10 +196,30 @@ import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { useNoteStore } from '../stores/note'
+import { useAuthStore } from '../stores/auth'
 
 const route = useRoute()
 const router = useRouter()
 const noteStore = useNoteStore()
+const authStore = useAuthStore()
+
+const currentUser = computed(() => authStore.currentUser?.username || '用户')
+
+const greeting = computed(() => {
+  const hour = new Date().getHours()
+  if (hour < 6) return '凌晨好'
+  if (hour < 9) return '早上好'
+  if (hour < 12) return '上午好'
+  if (hour < 14) return '中午好'
+  if (hour < 18) return '下午好'
+  return '晚上好'
+})
+
+const todayDate = computed(() => {
+  const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+  const now = new Date()
+  return `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${days[now.getDay()]}`
+})
 
 const notes = computed(() => noteStore.notes)
 const topNotes = computed(() => noteStore.topNotes)
@@ -333,6 +364,71 @@ function getPriorityText(priority) {
 </script>
 
 <style scoped>
+.welcome-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, rgba(32, 189, 153, 0.08) 0%, rgba(76, 175, 80, 0.05) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(32, 189, 153, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-bar::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(32, 189, 153, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.welcome-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.user-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #20BD99 0%, #1ABC9C 100%);
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(32, 189, 153, 0.3);
+}
+
+.welcome-greeting {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.welcome-sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.welcome-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+  position: relative;
+  z-index: 1;
+}
+
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
