@@ -20,9 +20,12 @@
             <el-select
               v-if="authStore.rememberedUsers.length > 0"
               v-model="form.username"
-              placeholder="请选择用户"
+              placeholder="请输入或选择用户名"
               size="large"
               clearable
+              filterable
+              allow-create
+              default-first-option
               class="user-select"
               @change="handleUserSelect"
             >
