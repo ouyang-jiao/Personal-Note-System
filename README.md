@@ -2,9 +2,10 @@
 
 基于 Vue 3 构建的现代化个人笔记管理系统，集成多种前端技术栈，提供完整的笔记管理、分类标签、数据统计等功能。
 
+## 🔗 在线预览
 
+🌐 [https://chimerical-youtiao-c68954.netlify.app/](https://magenta-bombolone-6b1b75.netlify.app)
 
-**在线预览**: [https://magenta-bombolone-6b1b75.netlify.app](https://magenta-bombolone-6b1b75.netlify.app)
 
 ## ✨ 技术栈
 
